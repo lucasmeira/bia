@@ -1,4 +1,4 @@
-FROM public.ecr.aws/docker/library/node:22-slim
+FROM node:22-slim
 RUN npm install -g npm@11 --loglevel=error
 
 # Instalando curl
@@ -18,7 +18,7 @@ RUN cd client && npm install --legacy-peer-deps --loglevel=error
 COPY . .
 
 # Build do front-end com Vite
-RUN cd client && VITE_API_URL=http://bia-alb-1158654708.us-east-1.elb.amazonaws.com npm run build
+RUN cd client && VITE_API_URL=http://bia-alb-2054930765.us-east-1.elb.amazonaws.com npm run build
 
 # Limpeza das dependências de desenvolvimento do client para reduzir tamanho
 RUN cd client && npm prune --production && rm -rf node_modules/.cache
