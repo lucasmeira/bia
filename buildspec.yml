@@ -12,7 +12,7 @@ phases:
     commands:
       - echo Build iniciado em `date`
       - echo Gerando imagem da BIA...
-      - docker buildx build --platform linux/arm64 -t $REPOSITORY_URI:latest .
+      - docker buildx build --platform linux/amd64,linux/arm64 -t $REPOSITORY_URI:latest .
       - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
   post_build:
     commands:
