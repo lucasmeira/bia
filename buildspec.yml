@@ -11,16 +11,15 @@ phases:
   build:
     commands:
       - echo Build iniciado em `date`
+      - echo "REPOSITORY_URI=$REPOSITORY_URI"
+      - echo "IMAGE_TAG=$IMAGE_TAG"
       - echo Gerando imagem da BIA...
       - docker buildx create --use
-      - docker buildx build --platform linux/arm64 -t $REPOSITORY_URI:latest . --push
-      - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
+      - docker buildx build --platform linux/arm64 -t $REPOSITORY_URI:latest -t $REPOSITORY_URI:$IMAGE_TAG . --push
   post_build:
     commands:
       - echo Build finalizado com sucesso em `date`
-      - echo Fazendo push da imagem para o ECR...
-      - docker push $REPOSITORY_URI:latest
-      - docker push $REPOSITORY_URI:$IMAGE_TAG
+      - echo Imagens já foram enviadas para o ECR via buildx
       - echo Gerando artefato da imagem para o ECS
       - printf '[{"name":"bia","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
 artifacts:
