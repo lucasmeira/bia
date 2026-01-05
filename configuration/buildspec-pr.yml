@@ -10,6 +10,6 @@ phases:
   build:
     commands:
       - npm install --legacy-peer-deps --loglevel=error
-      - VITE_API_URL=http://bia-alb-815738101.us-east-1.elb.amazonaws.com SKIP_PREFLIGHT=true npm run build -- prefix client
+      - VITE_API_URL=http://bia-alb-815738101.us-east-1.elb.amazonaws.com SKIP_PREFLIGHT=true npm run build --prefix client
       - echo Running Unit Tests
       - npm test
