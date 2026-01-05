@@ -2,13 +2,15 @@ version: 0.2
 
 phases:
   install:
+    runtime-versions:
+      nodejs: 22
     commands:
-      - echo Installing Node 22 e npm
-      - curl -fsSL https://deb.nodesource.com/setup_22.x | bash -
-      - sudo yum install -y nodejs
+      - node -v
+      - npm -v
   build:
     commands:
-      - cd client && npm install --legacy-peer-deps --loglevel=error
-      - VITE_API_URL=http://bia-dev.eba-arwpyxcc.us-east-1.elasticbeanstalk.com npm run build
+      - cd client
+      - npm install --legacy-peer-deps --loglevel=error
+      - VITE_API_URL=http://bia-alb-815738101.us-east-1.elb.amazonaws.com npm run build
       - echo Running Unit Tests
       - npm test
