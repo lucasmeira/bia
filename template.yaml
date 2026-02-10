@@ -4,12 +4,46 @@ Description: >
   bia-serverless
 
   Sample SAM Template for bia-serverless
-  
 # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Parameters:
+  SecurityGroupIds:
+    Type: String
+    Description: "Comma-separated list of Security Group IDs for the Lambda function"
+  SubnetIds:
+    Type: String
+    Description: "Comma-separated list of Subnet IDs for the Lambda function"
+  DBName:
+    Type: String
+    Description: "Database name for the Lambda function"
+  DBUser:
+    Type: String
+    Description: "Database user for the Lambda function"
+  DBPassword:
+    Type: String
+    Description: "Database password for the Lambda function"
+    NoEcho: true
+  DBHost:
+    Type: String
+    Description: "Database host for the Lambda function"
+  DBPort:
+    Type: Number
+    Description: "Database port for the Lambda function"
 Globals:
   Function:
     Timeout: 30
     MemorySize: 512
+  VpcConfig:
+    SecurityGroupIds:
+      - !Ref SecurityGroupIds
+    SubnetIds:
+      - !Ref SubnetIds
+  Environment:
+    Variables:
+      DB_HOST: !Ref DBHost
+      DB_PORT: !Ref DBPort
+      DB_NAME: !Ref DBName
+      DB_USER: !Ref DBUser
+      DB_PWD: !Ref DBPassword
   Api:
     Cors:
       AllowMethods: "'GET, PUT, POST, DELETE, OPTIONS'"
@@ -65,18 +99,6 @@ Resources:
           Properties:
             Path: /api/tarefas/{uuid}
             Method: delete
-      Environment:
-        Variables:
-          DB_HOST: bia-db.csba0wu66tf6.us-east-1.rds.amazonaws.com
-          DB_PORT: 5432
-          DB_USER: postgres
-          DB_PWD: ZF:M:vyUEwh$W(OTL*iBZrS]5Q[v
-      VpcConfig:
-        SecurityGroupIds:
-          - sg-0acb681a80d7314fe
-        SubnetIds:
-          - subnet-05fe98db978720582
-          - subnet-06bb33dfe9ad6af8e
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
   # Find out more about other implicit resources you can reference within SAM
