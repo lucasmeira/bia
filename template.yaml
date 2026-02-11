@@ -7,10 +7,10 @@ Description: >
 # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 Parameters:
   SecurityGroupIds:
-    Type: CommaDelimitedList
+    Type: List<AWS::EC2::SecurityGroup::Id>
     Description: "Comma-separated list of Security Group IDs for the Lambda function"
   SubnetIds:
-    Type: CommaDelimitedList
+    Type: List<AWS::EC2::Subnet::Id>
     Description: "Comma-separated list of Subnet IDs for the Lambda function"
   DBName:
     Type: String
