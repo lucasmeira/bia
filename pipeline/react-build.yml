@@ -1,0 +1,15 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      nodejs: 22
+  build:
+    commands:
+      - echo "Building the React application..."
+      - cd client
+      - npm install
+      - VITE_API_URL=http://localhost:3001 SKIP_PREFLIGHT_CHECK=true npm run build
+artifacts:
+  files:
+    - '**/*'
+  base-directory: client/build
