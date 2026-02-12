@@ -3,11 +3,18 @@ phases:
   install:
     runtime-versions:
       nodejs: 22
+    commands:
+      - echo "Installing dependencies for the SAM application..."
+      - if [ -f package-lock.json ]; then npm ci; else npm install; fi
+  pre_build:
+    commands:
+      - echo "Running unit tests..."
+      - npm test
   build:
     commands:
       - echo "Building the SAM application..."
       - sam build --template template.yaml
-      # - sam package --template .aws-sam/build/template.yaml --output-template-file template-out-bia-serverless-sam.yaml --s3-bucket $S3_BUCKET_NAME --config-env default
+      - echo "Packaging the SAM application..."
       - sam package --template .aws-sam/build/template.yaml --output-template-file template-out-bia-serverless-sam.yaml --s3-bucket bia-serverless-pipeline-us-east-1 --config-env default
 artifacts:
   files:
