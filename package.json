@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest tests/unit",
+    "migrate": "sequelize db:migrate",
     "start": "node server",
     "start_db": "node config/database.js"
   },
