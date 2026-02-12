@@ -8,7 +8,7 @@ phases:
       - echo "Building the React application..."
       - cd client
       - npm install
-      - VITE_API_URL=http://localhost:3001 SKIP_PREFLIGHT_CHECK=true npm run build
+      - VITE_API_URL=$ENDPOINT_API SKIP_PREFLIGHT_CHECK=true npm run build
 artifacts:
   files:
     - '**/*'
