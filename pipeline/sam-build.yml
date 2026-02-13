@@ -12,6 +12,8 @@ phases:
       - npm test
   build:
     commands:
+      - echo "Running database migrations..."
+      - npm run migrate
       - echo "Building the SAM application..."
       - sam build --template template.yaml
       - echo "Packaging the SAM application..."
